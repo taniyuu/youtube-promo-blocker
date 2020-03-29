@@ -4,15 +4,16 @@
   "version": null,
   "manifest_version": 2,
   "icons": {
-    "48": "icons/icon_48.png",
-    "128": "icons/icon_128.png"
+    "48": "icons/blue_48.png",
+    "128": "icons/blue_128.png"
   },
   "permissions": [
     "tabs"
   ],
   "browser_action": {
     "default_title": "youtube-promo-blocker",
-    "default_popup": "popup/popup.html"
+    "default_popup": "popup/popup.html",
+    "default_icon": "icons/gray_48.png"
   },
   "background": {
     "scripts": [

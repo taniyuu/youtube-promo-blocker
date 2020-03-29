@@ -1,3 +1,5 @@
+import store from './store';
+//alert(store.getters.foo);
 
 const url = 'https://www.cas.go.jp/jp/influenza/novel_coronavirus.html'
 searchAndHidden(url)
@@ -42,17 +44,18 @@ async function searchAndHidden(url) {
         if(attrs[i].name === 'href') {
             if(attrs[i].value === url) {
                 parent.style.display ="none";
-                return;
+                return true;
             }
         }
     }
     parent.style.display ="block";
+    return;
 }
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
+chrome.runtime.onMessage.addListener(async function(request, sender, sendResponse){
     let selection;
     console.error(url);
-    searchAndHidden(url);
+    const result = await searchAndHidden(url);
     // console.error(request.message); // -> 選択範囲ちょうだい が出力される
     
     // 画面で選択されている部分を文字列で取得する
@@ -61,5 +64,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     }else{
       selection = '';
     }*/
-    sendResponse(null);
+    console.error(result);
+    sendResponse(!!result);
   });

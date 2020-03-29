@@ -1,14 +1,31 @@
 import store from './store';
+//alert(store.getters.foo);
+const url = 'https://www.cas.go.jp/jp/influenza/novel_coronavirus.html';
+const YOUTUBE = 'https://www.youtube.com/';
 
-//alert(`Hello ${store.getters.foo}!`);
+const PATH_GRAY="icons/gray_48.png";
+const PATH_BLUE="icons/blue_48.png";
 
-chrome.tabs.onUpdated.addListener(function(tabid, info, tab){
-    if (info.status === 'complete' && tab.url.indexOf('https://www.youtube.com/') !== -1) {
-            // いい感じの処理
-            console.info(tab);
-            console.info(info);
-            chrome.tabs.sendMessage(tab.id, {message: '選択範囲ちょうだい'}, function(item){
-                // NOP
-            });
+function sendMessage(tabId) {
+    chrome.tabs.sendMessage(tabId, {url}, function(item){
+        console.error('hogeeeee')
+        console.error(item);
+        chrome.browserAction.setIcon({path:PATH_BLUE});
+    });
+}
+
+chrome.tabs.onActivated.addListener(function(activeInfo){
+    chrome.tabs.get(activeInfo.tabId,function(tab){
+        if(tab.url.indexOf(YOUTUBE) !== -1) {
+            sendMessage(tab.id);
+        }else{
+            chrome.browserAction.setIcon({path:PATH_GRAY});
         }
+    })
+})
+
+chrome.tabs.onUpdated.addListener(function(_tabid, info, tab){
+    if (info.status === 'complete' && tab.url.indexOf(YOUTUBE) !== -1) {
+        sendMessage(tab.id);
+    }
 })
