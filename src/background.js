@@ -17,8 +17,6 @@ function sleep(time) {
 function sendMessage(tab, counter = 0) {
     const MAX_RETRY_COUNT = 10;
     if(counter >= MAX_RETRY_COUNT) {
-        console.info('not found');
-        chrome.browserAction.setIcon({path:PATH_GRAY});
         return;
     }
     chrome.tabs.sendMessage(tab.id, {url,counter}, async function(item){
