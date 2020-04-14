@@ -1,7 +1,7 @@
 import store from './store';
 //alert(store.getters.foo);
 
-const url = 'https://www.cas.go.jp/jp/influenza/novel_coronavirus.html'
+const url = 'https://corona.go.jp/'
 //main();
 
 function searchAndHidden(url, parentSelector, childSelector) {
