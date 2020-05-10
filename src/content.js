@@ -44,8 +44,10 @@ function main(counter){
             }
             break;
         case '/watch':
+            const result3 = searchAndHidden(url, "#clarify-box", ".yt-simple-endpoint.style-scope.ytd-clarification-renderer");
+            const result4 = searchAndHidden(url, "ytd-info-panel-container-renderer.ytd-watch-flexy", "#content-endpoint");
             responseObj = {
-                result:!!searchAndHidden(url, "#clarify-box", ".yt-simple-endpoint.style-scope.ytd-clarification-renderer"),
+                result:!!result3 || !!result4,
                 counter,
                 href
             }
